@@ -1,4 +1,5 @@
-remarkable/
-remarkable_metadata/
-remarkable_backup/
+remarkable*
 *.swp
+.venv/
+__pycache__/
+.vscode
