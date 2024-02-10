@@ -125,13 +125,13 @@ class Remarkable:
     def download_metadata(self):
         logger.log(f"Downloading metadata to {self.raw_dir_local}")
         os.makedirs(self.raw_dir_local, exist_ok=True) # create directories if they do not exist
-        pc_run(["rsync", "--info=progress2", "-az", "--delete-excluded", "--include=*.metadata", "--exclude=*", f"{self.ssh_name}:{self.raw_dir_remote}/", f"{self.raw_dir_local}/"], exiterror="Failed downloading metadata", capture=False) # --delete-excluded deletes files on PC that are no longer on RM
+        pc_run(["rsync", "-az", "--delete-excluded", "--include=*.metadata", "--exclude=*", f"{self.ssh_name}:{self.raw_dir_remote}/", f"{self.raw_dir_local}/"], exiterror="Failed downloading metadata", capture=False) # --delete-excluded deletes files on PC that are no longer on RM
 
     # Download all raw files from RM with rsync
     def backup(self):
         logger.log(f"Backing up raw files to {self.backup_dir}")
         os.makedirs(self.backup_dir, exist_ok=True) # create directories if they do not exist
-        pc_run(["rsync", "--info=progress2", "-az", "--delete", f"{self.ssh_name}:{self.raw_dir_remote}/", f"{self.backup_dir}/"], exiterror="Failed backing up raw files", capture=False) # --delete deletes files on PC that are no longer on RM
+        pc_run(["rsync", "-az", "--delete", f"{self.ssh_name}:{self.raw_dir_remote}/", f"{self.backup_dir}/"], exiterror="Failed backing up raw files", capture=False) # --delete deletes files on PC that are no longer on RM
 
     # Read a RM file that has been downloaded to PC
     def read_file(self, filename):
